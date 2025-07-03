@@ -1,3 +1,3 @@
-module github.com/arduriki/go-complete-guide/profit_calculator
+module example.com/profit_calculator
 
 go 1.24.4
