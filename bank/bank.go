@@ -1,41 +1,16 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"os"
-	"strconv"
+
+	"example.com/bank/fileops"
+	"github.com/Pallinder/go-randomdata"
 )
 
 const accountBalanceFile = "balance.txt"
 
-// getBalanceFromFile reads text from a file.
-func getBalanceFromFile() (float64, error) {
-	data, err := os.ReadFile(accountBalanceFile)
-	if err != nil {
-		return 1000, errors.New("failed to find the balance file")
-	}
-	// Convert from file to text.
-	balanceText := string(data)
-	// Convert from str to float64.
-	balance, err := strconv.ParseFloat(balanceText, 64)
-	if err != nil {
-		return 1000, errors.New("failed to parse stored balance value")
-	}
-
-	return balance, nil
-}
-
-// writeBalanceToFile writes text into a file.
-func writeBalanceToFile(balance float64) {
-	// To create a collection of bytes.
-	balanceText := fmt.Sprint(balance)
-	// Indicate in which file you want to store the byte array and set the permissions.
-	os.WriteFile(accountBalanceFile, []byte(balanceText), 0644)
-}
-
 func main() {
-	var accountBalance, err = getBalanceFromFile()
+	var accountBalance, err = fileops.GetFloatFromFile(accountBalanceFile, 500)
 	if err != nil {
 		fmt.Println("ERROR")
 		fmt.Println(err)
@@ -45,15 +20,10 @@ func main() {
 	}
 
 	fmt.Println("Welcome to Go bank!")
+	fmt.Println("Reach us 24/7:", randomdata.PhoneNumber())
 
 	for {
-
-		fmt.Println("What do you want to do?")
-		fmt.Println("1. Check balance")
-		fmt.Println("2. Deposit money")
-		fmt.Println("3. Withdraw money")
-		fmt.Println("4. Exit")
-		fmt.Print("Your choice: ")
+		presentOptions()
 
 		var choice int
 		fmt.Scan(&choice)
@@ -74,7 +44,7 @@ func main() {
 
 			accountBalance += depositAmount
 			fmt.Println("Balance updated! New amount:", accountBalance)
-			writeBalanceToFile(accountBalance)
+			fileops.WriteFloatToFile(accountBalance, accountBalanceFile)
 		case 3:
 			fmt.Print("Withdrawal amount: ")
 			var withdrawalAmount float64
@@ -92,7 +62,7 @@ func main() {
 
 			accountBalance -= withdrawalAmount
 			fmt.Println("Balance updated! New amount:", accountBalance)
-			writeBalanceToFile(accountBalance)
+			fileops.WriteFloatToFile(accountBalance, accountBalanceFile)
 		default:
 			fmt.Println("Goodbye!")
 			fmt.Println("Thanks for choosing our bank")
