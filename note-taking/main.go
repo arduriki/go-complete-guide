@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"example.com/note_taking/note"
-	"example.com/note_taking/todo"
+	"example.com/note-taking/note"
+	"example.com/note-taking/todo"
 )
 
 // Creating interfaces: a contract that guarantees that a certain value has a certain method.
