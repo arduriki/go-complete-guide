@@ -45,7 +45,7 @@ func getUserInput(text string) (float64, error) {
 
 func storeResults(ebt, profit, ratio float64) {
 	results := fmt.Sprintf("EBT: %.2f\nProfit: %.2f\nRatio: %.2f", ebt, profit, ratio)
-	os.WriteFile(resultsFile, []byte(results), 0644)
+	os.WriteFile(resultsFile, []byte(results), 0o644)
 }
 
 func calculateFinancials(revenue, expenses, taxRate float64) (float64, float64, float64) {
