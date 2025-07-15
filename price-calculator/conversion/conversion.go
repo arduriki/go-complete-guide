@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-func StringsToFloat(strings []string) ([]float64, error) {
+func StringsToFloats(strings []string) ([]float64, error) {
 	var floats []float64
 
 	for _, stringValue := range strings {
